@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/f3bruary/.vim/bundle/vim-airline/autoload/airline'
+let g:netrw_dirhist_2='/home/f3bruary/.notifyosdconf'
+let g:netrw_dirhist_3='/home/f3bruary/.conky/scripts/accu_weather'
+let g:netrw_dirhist_4='/home/f3bruary/.conky/scripts'
+let g:netrw_dirhist_5='/home/f3bruary/.themes'
