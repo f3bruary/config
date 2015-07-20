@@ -1,0 +1,124 @@
+# Conky settings #
+background no
+update_interval 5
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit celsius
+
+# Window specifications #
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 5
+
+minimum_size 250 300
+maximum_width 250
+
+alignment tr
+gap_x 30
+gap_y 30
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+
+# Text settings #
+use_xft yes
+xftfont Roboto-Thin:size=8
+xftalpha 0.5
+
+uppercase no
+
+temperature_unit celsius
+
+default_color 828282
+
+# Lua Load  #
+lua_load ~/.conky/scripts/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					           Music Player
+#----------------------------------------------------------------------------------------------------------------------------------------
+${alignc}${color 2E70AA}${voffset 17}Now Playing:
+${alignc}${color 828282}${voffset 1}${execi 5 bash ~/.conky/scripts/spotify.sh}
+${color 2E70AA}${hr 1}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					         Download Circles
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 828282}${goto 19}${voffset 42}${execi 5 bash ~/.conky/scripts/nzbget.sh}
+${color 828282}${goto 17}${voffset 27}Usenet
+${color 828282}${goto 81}${voffset -52}${execi 5 bash ~/.conky/scripts/transmission.sh}
+${color 828282}${goto 80}${voffset 27}Torrent
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					         Battery Circle 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 828282}${goto 149}${voffset -53}${battery_percent BAT1}%
+${color 828282}${goto 142}${voffset 27}Battery
+#----------------------------------------------------------------------------------------------------------------------------------------
+#						Weather 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${font conkyweather:size=35}${color 2E70AA}${goto 200}${voffset -75}${execpi 1800  sed -n '2p' ~/.conky/scripts/accu_weather/rss/weather}$color${font}${font Radio Space:size=9}${color 828282}${goto 202}${voffset 12}
+${execi 600 bash ~/.conky/scripts/accu_weather/rss/acc_rss}${font Radio Space:size=15}${goto 204}${voffset -8}${execpi 600 sed -n '1p' ~/.conky/scripts/accu_weather/rss/weather|awk '{print $NF}' | sed -e 's/C/°/i'}${font}$color
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					           CPU usage 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color #2E70AA}${hr 1}
+${color #828282}${voffset 8}Temp: $color ${acpitemp}°
+${color #828282}Uptime: ${uptime_short}
+${color #828282}Updates:$color ${execi 1800 checkupdates | wc -l}
+${color #828282}WiFi Q: $color  ${wireless_link_qual_perc wlo1}%${goto 116}${voffset -10}${cpu cpu0}% ${color 828282}${goto 116}${voffset 12}CPU1$color${goto 191}${voffset -10}${cpu cpu1}% ${color 828282}${goto 191}${voffset 12}CPU2$color
+#----------------------------------------------------------------------------------------------------------------------------------------
+#						Network
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 2E70AA}${voffset 0}${hr 1}
+${color 828282}${voffset 2}wan: $color$alignr${exec '/home/f3bruary/.conky/scripts/ip.sh'}
+${color 828282}wlo1: $color$alignr${addr wlo1}
+${color 828282}eno1: $color$alignr${addr eno1}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					DISK/RAM/SWAP usage
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 2E70AA}${voffset 0}${hr 1}
+${color 828282}${goto 7}${voffset 35}${fs_used_perc /}%
+${color 828282}${goto 7}HOME
+${color 828282}${goto 67}${voffset -26}${fs_used_perc /media/data}%
+${color 828282}${goto 67}DATA
+${color 828282}${goto 135}${voffset -26}${memperc}%
+${color 828282}${goto 135}RAM
+${color 828282}${goto 202}${voffset -26}${fs_used_perc /media/nas/downloads}%
+${color 828282}${goto 202}NAS
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					   Running processes
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color 2E70AA}${voffset 2}${hr 1}
+${color #2E70AA}${voffset 5}NAME${goto 122}PID${goto 175}CPU%${alignr}MEM%$color${voffset 5}
+${top name 1}${goto 115}${top pid 1}${goto 175}${top cpu 1}${alignr}${top mem 1}
+${top name 2}${goto 115}${top pid 2}${goto 175}${top cpu 2}${alignr}${top mem 2}
+${top name 3}${goto 115}${top pid 3}${goto 175}${top cpu 3}${alignr}${top mem 3}
+${top name 5}${goto 115}${top pid 5}${goto 175}${top cpu 5}${alignr}${top mem 5}
+${top name 6}${goto 115}${top pid 6}${goto 175}${top cpu 6}${alignr}${top mem 6}
+${color 2E70AA}${voffset 2}${hr 1}${color}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#					        Media
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color #2E70AA}${voffset 5}UPCOMING TV SHOWS${alignr}DATE$color${voffset 5}
+${execpi 3600 ~/.conky/scripts/sonarr.sh}
+${color #2E70AA}${voffset 5}UPCOMING MOVIES${alignr}DATE$color${voffset 5}
+${execpi 3600 ~/.conky/scripts/cp.sh | sort -t "-" -b -k 3 -k 2M -k1 | head -n 5 | sed -e 's/ 2015//g' -e 's/ - /\$\{alignr\}/g'}
+
