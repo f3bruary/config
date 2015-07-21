@@ -97,12 +97,12 @@ ${color 828282}eno1: $color$alignr${addr eno1}
 ${color 2E70AA}${voffset 0}${hr 1}
 ${color 828282}${goto 7}${voffset 35}${fs_used_perc /}%
 ${color 828282}${goto 7}HOME
-${color 828282}${goto 67}${voffset -26}${fs_used_perc /media/data}%
-${color 828282}${goto 67}DATA
+${color 828282}${goto 71}${voffset -26}${fs_used_perc /media/data}%
+${color 828282}${goto 71}DATA
 ${color 828282}${goto 135}${voffset -26}${memperc}%
 ${color 828282}${goto 135}RAM
-${color 828282}${goto 202}${voffset -26}${fs_used_perc /media/nas/downloads}%
-${color 828282}${goto 202}NAS
+${color 828282}${goto 201}${voffset -26}${fs_used_perc /media/nas/downloads}%
+${color 828282}${goto 201}NAS
 #----------------------------------------------------------------------------------------------------------------------------------------
 #					   Running processes
 #----------------------------------------------------------------------------------------------------------------------------------------
