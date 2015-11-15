@@ -118,7 +118,7 @@ ${color 2E70AA}${voffset 2}${hr 1}${color}
 #					        Media
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${color #2E70AA}${voffset 5}UPCOMING TV SHOWS${alignr}DATE$color${voffset 5}
-${execpi 3600 ~/.conky/scripts/sonarr.sh}
+${execpi 3600 ~/.conky/scripts/sonarr.sh | uniq | tail -n 10}
 ${color #2E70AA}${voffset 5}UPCOMING MOVIES${alignr}DATE$color${voffset 5}
 ${execpi 3600 ~/.conky/scripts/cp.sh | sort -t "-" -b -k 3 -k 2M -k1 | head -n 5 | sed -e 's/ 2015//g' -e 's/ - /\$\{alignr\}/g'}
 
